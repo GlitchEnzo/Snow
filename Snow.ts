@@ -19,7 +19,7 @@ window.onpopstate = (event) =>
     {
         if (event.state.viewAllGenres)
         {
-            //playlist.ViewAllGenres(false);
+            playlist.ViewAllGenres(false);
         }
         else if (event.state.viewAllVideos)
         {
@@ -27,17 +27,25 @@ window.onpopstate = (event) =>
         }
         else if (event.state.genre)
         {
-            //playlist.OpenGenre(event.state.genre);
+            playlist.OpenGenre(event.state.genre);
         }
-        else if (event.state.search)
+        else if (event.state.show)
+        {
+            playlist.OpenShow(event.state.show);
+        }
+        else if (event.state.season)
+        {
+            playlist.OpenSeason(event.state.season);
+        }
+        else if (event.state.search != null) // empty string would evaluate to false, so need to explicitly null check
         {
             playlist.Search(event.state.search, false);
         }
     }
     else if (playlist) // we should just default to show all genres
     {
-        //playlist.ViewAllGenres(false);
-        playlist.ViewAllVideos(false);
+        playlist.ViewAllGenres(false);
+        //playlist.ViewAllVideos(false);
     }
 };
 

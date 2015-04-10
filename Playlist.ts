@@ -1,6 +1,8 @@
 ﻿class Playlist {
-    //genres: Genre[] = [];
-    videos: Video[] = [];
+    genres: Genre[] = [];
+    shows: TvShow[] = [];
+    movies: Video[] = [];
+    videos: Video[] = []; // ALL videos.  movies or TV shows.
 
     //selectedGenre: string = "";
 
@@ -8,6 +10,8 @@
      * The index in the playlist of the video that is currently playing. 
      */
     currentVideoIndex: number = 0;
+
+    currentShow: TvShow;
 
     /**
      * The actual playlist of videos queued up to play. 
@@ -30,6 +34,25 @@
                 var video = new Video();
                 video.genre = xmlDoc.childNodes[0].childNodes[i].attributes.getNamedItem("genre").value;
                 video.title = xmlDoc.childNodes[0].childNodes[i].attributes.getNamedItem("title").value;
+
+                var seasonAttr = xmlDoc.childNodes[0].childNodes[i].attributes.getNamedItem("season");
+                if (seasonAttr != null)
+                {
+                    video.season = seasonAttr.value;
+                }
+
+                var episodeNumAttr = xmlDoc.childNodes[0].childNodes[i].attributes.getNamedItem("episodeNumber");
+                if (episodeNumAttr != null)
+                {
+                    video.episodeNumber = episodeNumAttr.value;
+                }
+
+                var episodeTitleAttr = xmlDoc.childNodes[0].childNodes[i].attributes.getNamedItem("episodeTitle");
+                if (episodeTitleAttr != null)
+                {
+                    video.episodeTitle = episodeTitleAttr.value;
+                }
+
                 video.path = xmlDoc.childNodes[0].childNodes[i].attributes.getNamedItem("path").value;
 
                 //console.log("Loaded video: " + video.path);
@@ -42,53 +65,108 @@
         // sort all of the videos into alphabetical order
         this.videos.sort(CompareVideos);
 
-        //for (var i = 0; i < this.videos.length; i++)
-        //{
-        //    var song = this.videos[i];
+        for (var i = 0; i < this.videos.length; i++)
+        {
+            var video = this.videos[i];
 
-        //    var genre = this.genres[song.genre];
-        //    if (genre) {
-        //        // Only add the artist if it doesn't already exist
-        //        if (genre.artists.indexOf(artist) == -1) {
-        //            //console.log("Adding artist: " + artist.name);
-        //            genre.artists.push(artist);
-        //        }
-        //    }
-        //    else {
-        //        //console.log("Creating genre: " + song.genre);
-        //        //console.log("Adding artist: " + song.artist);
+            if (!video.isMovie) // it is a TV show
+            {
+                var genre: Genre = this.genres[video.genre];
+                if (genre) // the genre exists
+                {
+                    var show: TvShow = this.shows[video.title];
+                    if (show) // the TV show exists
+                    {
+                        var season: Season = show.seasons[video.season];
+                        if (season) // the season exists
+                        {
+                            season.episodes.push(video);
+                        }
+                        else // the season doesn't exist
+                        {
+                            season = new Season();
+                            season.name = video.season;
+                            season.episodes.push(video);
+                            show.seasons.push(season);
+                        }
+                    }
+                    else // the TV show doesn't exist
+                    {
+                        show = new TvShow();
+                        show.name = video.title;
 
-        //        genre = new Genre();
-        //        genre.name = song.genre;
-        //        genre.artists.push(artist);
-        //        this.genres[song.genre] = genre;
+                        season = new Season();
+                        season.name = video.season;
+                        season.episodes.push(video);
+                        show.seasons.push(season);
 
-        //        //this.genres[song.genre] = new Array();
-        //        //this.genres[song.genre].push();
-        //    }
-        //}
+                        this.shows[video.title] = show;
+                    }
 
-        //this.ViewAllGenres(false);
-        this.ViewAllVideos(false);
+                    genre.shows.push(show);
+                }
+                else // the genre doesn't exist
+                {
+                    show = new TvShow();
+                    show.name = video.title;
+
+                    season = new Season();
+                    season.name = video.season;
+                    season.episodes.push(video);
+                    show.seasons.push(season);
+
+                    this.shows[video.title] = show;
+
+                    genre = new Genre();
+                    genre.name = video.genre;
+                    genre.shows.push(show);
+
+                    this.genres[video.genre] = genre;
+                }
+            }
+            else // it is a Movie
+            {
+                var genre: Genre = this.genres[video.genre];
+                if (genre) // the genre exists
+                {
+                    genre.movies.push(video);
+                    this.movies.push(video);
+                }
+                else // the genre doesn't exist
+                {
+                    genre = new Genre();
+                    genre.name = video.genre;
+                    genre.movies.push(video);
+
+                    this.genres[video.genre] = genre;
+                }
+            }
+        }
+
+        this.ViewAllGenres(false);
+        //this.ViewAllVideos(false);
     }
 
-    //ViewAllGenres(pushState: boolean) {
-    //    if (pushState) {
-    //        // push the state into the browser history so can navigate back to it
-    //        // pushState(stateObject, title, url)
-    //        history.pushState({ viewAllGenres: true }, "Unused", null);
-    //    }
+    ViewAllGenres(pushState: boolean)
+    {
+        if (pushState)
+        {
+            // push the state into the browser history so can navigate back to it
+            // pushState(stateObject, title, url)
+            history.pushState({ viewAllGenres: true }, "Unused", null);
+        }
 
-    //    currentFolder.innerHTML = "All Genres";
+        currentFolder.innerHTML = "All Genres";
 
-    //    thelist.innerHTML = "";
+        thelist.innerHTML = "";
 
-    //    for (var genreItem in this.genres) {
-    //        // genreItem is just the NAME of the genre, which should be used as a key
-    //        var listItem = this.genres[genreItem].CreateListItem();
-    //        thelist.appendChild(listItem);
-    //    }
-    //}
+        for (var genreItem in this.genres)
+        {
+            // genreItem is just the NAME of the genre, which should be used as a key
+            var listItem = this.genres[genreItem].CreateListItem();
+            thelist.appendChild(listItem);
+        }
+    }
 
     ViewAllVideos(pushState: boolean)
     {
@@ -99,7 +177,7 @@
             history.pushState({ viewAllSongs: true }, "Unused", null);
         }
 
-        currentFolder.innerHTML = "All Songs";
+        currentFolder.innerHTML = "All Videos";
 
         thelist.innerHTML = "";
 
@@ -107,6 +185,28 @@
         {
             var listItem = this.videos[videoItem].CreateListItem();
             thelist.appendChild(listItem);
+        }
+    }
+
+    OpenGenre(genreName: string)
+    {
+        this.genres[genreName].Open(false);
+    }
+
+    OpenShow(showName: string)
+    {
+        this.currentShow = this.shows[showName];
+        this.shows[showName].Open(false);
+    }
+
+    OpenSeason(seasonName: string)
+    {
+        for (var i = 0; i < this.currentShow.seasons.length; i++)
+        {
+            if (this.currentShow.seasons[i].name == seasonName)
+            {
+                this.currentShow.seasons[i].Open(false);
+            }
         }
     }
 
@@ -144,17 +244,19 @@
 
         for (var i = 0; i < thelist.childNodes.length; i++)
         {
-            //console.log(i);
-
-            var videoPath: string = thelist.childNodes[i].attributes.getNamedItem("data-path").value;
-
-            // if the current node is the one that was clicked, then mark it as the current video (-1 since getNextVideo auto increments by 1)
-            if (videoPath == video.path)
+            var pathAttr = thelist.childNodes[i].attributes.getNamedItem("data-path");
+            if (pathAttr != null)
             {
-                this.currentVideoIndex = this.playlist.length - 1;
-            }
+                var videoPath: string = pathAttr.value;
 
-            this.playlist.push(videoPath);
+                // if the current node is the one that was clicked, then mark it as the current video (-1 since getNextVideo auto increments by 1)
+                if (videoPath == video.path)
+                {
+                    this.currentVideoIndex = this.playlist.length - 1;
+                }
+
+                this.playlist.push(videoPath);
+            }
         }
 
         // automatically start playing the video that was clicked
@@ -165,14 +267,16 @@
     {
         query = query.toLowerCase();
 
-        if (pushState) {
+        if (pushState)
+        {
             // push the state into the browser history so can navigate back to it
             // if the current state is a search, then replace it to prevent a stack of search history
-            if (history.state != null && history.state.search) {
-                //console.log("Replacing...");
+            if (history.state != null && history.state.search != null)
+            {
                 history.replaceState({ search: query }, "Unused", null);
             }
-            else {
+            else
+            {
                 history.pushState({ search: query }, "Unused", null);
             }
         }
@@ -182,17 +286,29 @@
         thelist.innerHTML = "";
 
         // find any related genres
-        //for (var genreItem in this.genres) {
-        //    if (genreItem.toLowerCase().indexOf(query) > -1) {
-        //        thelist.appendChild(this.genres[genreItem].CreateListItem());
-        //    }
-        //}
+        for (var genreItem in this.genres)
+        {
+            if (genreItem.toLowerCase().indexOf(query) > -1)
+            {
+                thelist.appendChild(this.genres[genreItem].CreateListItem());
+            }
+        }
+
+        // find any related TV shows
+        for (var showItem in this.shows)
+        {
+            if (showItem.toLowerCase().indexOf(query) > -1)
+            {
+                thelist.appendChild(this.shows[showItem].CreateListItem());
+            }
+        }
 
         // find any related videos
         for (var videoItem in this.videos)
         {
             var video = this.videos[videoItem];
-            if (video.title.toLowerCase().indexOf(query) > -1)
+            if (video.isMovie && video.title.toLowerCase().indexOf(query) > -1 ||
+                video.episodeTitle.toLowerCase().indexOf(query) > -1)
             {
                 thelist.appendChild(video.CreateListItem());
             }
@@ -206,13 +322,12 @@
 function CompareVideos(a: Video, b: Video)
 {
     // first compare the genre
-    //if (a.genre < b.genre)
-    //    return -1;
-    //if (a.genre > b.genre)
-    //    return 1;
+    if (a.genre < b.genre)
+        return -1;
+    if (a.genre > b.genre)
+        return 1;
 
-    // track name must be the same
-    // so now compare the title
+    // now compare the title
     if (a.title < b.title)
         return -1;
     if (a.title > b.title)

@@ -1,17 +1,34 @@
 ﻿class Video
 {
     genre = "Unknown";
-    type = "Unknown";
+    //type = "Unknown";
     title = "Unknown";
     season = "Unknown";
-    episode = "Unknown";
+    episodeNumber = "Unknown";
+    episodeTitle = "Unknown";
     path = "Unknown";
+
+    /*
+     * Returns true if this Video is a movie.  False if it is a TV show.
+     */
+    get isMovie(): boolean
+    {
+        return this.episodeNumber == "Unknown" || this.episodeNumber == "";
+    }
 
     CreateListItem()
     {
         var listItem = document.createElement("li");
 
-        listItem.innerHTML = "<div><img src=\"icons/video.png\"/> " + this.title + "</div>";
+        // check if it is a TV show episode
+        if (!this.isMovie)
+        {
+            listItem.innerHTML = "<div><img src=\"icons/video.png\"/> " + this.title + " - " + this.episodeNumber + " - " + this.episodeTitle + "</div>";
+        }
+        else // it is a movie
+        {
+            listItem.innerHTML = "<div><img src=\"icons/video.png\"/> " + this.title + "</div>";
+        }
 
         // store the path to the song on the list item itelf to let the player access it
         listItem.setAttribute("data-path", this.path);

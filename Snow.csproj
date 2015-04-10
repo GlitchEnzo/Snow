@@ -17,6 +17,8 @@
     <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="icons\genre.png" />
+    <Content Include="icons\tv.png" />
     <Content Include="icons\video.png" />
     <Content Include="Snow.css" />
     <Content Include="index.html" />
@@ -25,8 +27,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Playlist.ts" />
+    <TypeScriptCompile Include="Genre.ts" />
+    <TypeScriptCompile Include="Season.ts" />
     <TypeScriptCompile Include="Snow.ts" />
     <None Include="Video.ts" />
+    <TypeScriptCompile Include="TvShow.ts" />
   </ItemGroup>
   <ItemGroup>
     <None Include="web.Debug.config">
