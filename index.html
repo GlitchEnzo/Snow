@@ -2,14 +2,42 @@
 
 <html lang="en">
 <head>
+    <!-- Default to UTF-8 encoding. -->
     <meta charset="utf-8" />
-    <title>TypeScript HTML App</title>
-    <link rel="stylesheet" href="app.css" type="text/css" />
-    <script src="app.js"></script>
+
+    <!-- Set the viewport to fill a mobile device screen, without overflowing out of it. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1, minimum-scale=1.0, maximum-scale=1.0">
+
+    <!-- Allow it to launch fullscreen when added to the Android home screen. -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Allow it to launch fullscreen when added to the iOS home screen. -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <!-- Set the title of the page that appears in the browser tab. -->
+    <title>Cacophony!</title>
+
+    <!-- Load the Cascading Style Sheet. -->
+    <link rel="stylesheet" href="Snow.css" type="text/css" />
+
+    <!-- Load all of the required JavaScript files. -->
+    <script src="Snow.js"></script>
 </head>
 <body>
-    <h1>TypeScript HTML App</h1>
+    <div id="header">
+        <div id="videoTitle">Title</div>
+        <video id="videoElement" height="480px" controls>Not Supported!</video>
+        <div>
+            <button onclick="playlist.ViewAllTV(true);">TV</button>
+            <button onclick="playlist.ViewAllMovies(true);">Movies</button>
+            <button onclick="playlist.ViewAllOther(true);">Other</button>
+            <a id="currentFolder">Location</a>
+            <input id="searchbox" type="text" value="Search" size="21" maxlength="120" onkeydown="search(event)" onclick="searchClicked();">
+        </div>
+    </div>
 
-    <div id="content"></div>
+    <div id="scroller">
+        <ul id="thelist" />
+    </div>
 </body>
 </html>
