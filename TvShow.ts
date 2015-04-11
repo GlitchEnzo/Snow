@@ -44,4 +44,17 @@
             thelist.appendChild(listItem);
         }
     }
+
+    GetSeason(seasonName: string)
+    {
+        for (var i = 0; i < this.seasons.length; i++)
+        {
+            if (this.seasons[i].name == seasonName)
+            {
+                return this.seasons[i];
+            }
+        }
+
+        return null;
+    }
 } 

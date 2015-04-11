@@ -77,7 +77,9 @@
                     var show: TvShow = this.shows[video.title];
                     if (show) // the TV show exists
                     {
-                        var season: Season = show.seasons[video.season];
+                        //console.log(video.title + " exists!");
+
+                        var season: Season = show.GetSeason(video.season);
                         if (season) // the season exists
                         {
                             season.episodes.push(video);
@@ -92,6 +94,8 @@
                     }
                     else // the TV show doesn't exist
                     {
+                        //console.log(video.title + " doesn't exist!");
+
                         show = new TvShow();
                         show.name = video.title;
 
@@ -101,9 +105,9 @@
                         show.seasons.push(season);
 
                         this.shows[video.title] = show;
-                    }
 
-                    genre.shows.push(show);
+                        genre.shows.push(show);
+                    }
                 }
                 else // the genre doesn't exist
                 {

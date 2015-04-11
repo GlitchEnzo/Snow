@@ -3,5 +3,6 @@
   <Video genre="Random" title="Lego" path="http://techslides.com/demos/sample-videos/small.mp4"/>
   <Video genre="Random" title="Sintel" path="http://media.w3.org/2010/05/sintel/trailer.mp4"/>
   <Video genre="Anime" title="Escaflowne" season="01" episodeNumber="01" episodeTitle="The Girl from the Mystic Moon" path="http://media.w3.org/2010/05/sintel/trailer.mp4"/>
+  <Video genre="Anime" title="Escaflowne" season="01" episodeNumber="02" episodeTitle="" path="http://media.w3.org/2010/05/sintel/trailer.mp4"/>
   <Video genre="Anime" title="Spirited Away" path="http://media.w3.org/2010/05/sintel/trailer.mp4"/>
 </Videos>
