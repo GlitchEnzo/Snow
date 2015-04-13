@@ -175,6 +175,25 @@
         }
     }
 
+    ViewAllTV(pushState: boolean)
+    {
+        if (pushState)
+        {
+            history.pushState({ viewAllTV: true }, "Unused", null);
+        }
+
+        currentFolder.innerHTML = "All TV";
+
+        thelist.innerHTML = "";
+
+        for (var showItem in this.shows)
+        {
+            // genreItem is just the NAME of the genre, which should be used as a key
+            var listItem = this.shows[showItem].CreateListItem();
+            thelist.appendChild(listItem);
+        }
+    }
+
     ViewAllVideos(pushState: boolean)
     {
         if (pushState)

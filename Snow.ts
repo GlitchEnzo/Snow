@@ -21,6 +21,10 @@ window.onpopstate = (event) =>
         {
             playlist.ViewAllGenres(false);
         }
+        else if (event.state.viewAllTV)
+        {
+            playlist.ViewAllTV(false);
+        }
         else if (event.state.viewAllVideos)
         {
             playlist.ViewAllVideos(false);
@@ -51,6 +55,17 @@ window.onpopstate = (event) =>
 
 window.onresize = () =>
 {
+    // Make the video 33% of the window.  The browsing list will then be the remaining 66%.
+    videoElement.height = window.innerHeight * 0.33;
+
+    //videoElement.style.maxWidth = window.innerWidth + "px";
+
+    //if (videoElement.width > window.innerWidth)
+    //{
+    //    console.log("squishing!");
+    //    videoElement.width = window.innerWidth;
+    //}
+
     // The size of the header and footer are fixed.  The list should take up all remaining space.
     thelist.style.height = window.innerHeight - header.clientHeight + "px";
 }
@@ -66,7 +81,8 @@ function search(event: KeyboardEvent)
     {
         query = searchbox.value;
     }
-    else {
+    else
+    {
         query = searchbox.value + String.fromCharCode(event.keyCode);
     }
 
@@ -99,6 +115,6 @@ window.onload = () =>
 
     playlist = new Playlist("videos.xml");
 
-    // The size of the header and footer are fixed.  The list should take up all remaining space.
-    thelist.style.height = window.innerHeight - header.clientHeight + "px";
+    // force a resize event
+    window.onresize(null);
 };
