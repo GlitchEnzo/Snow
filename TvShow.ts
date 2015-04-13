@@ -45,6 +45,12 @@
         }
     }
 
+    AddSeason(season: Season)
+    {
+        season.tvShow = this;
+        this.seasons.push(season);
+    }
+
     GetSeason(seasonName: string)
     {
         for (var i = 0; i < this.seasons.length; i++)

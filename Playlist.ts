@@ -89,7 +89,8 @@
                             season = new Season();
                             season.name = video.season;
                             season.episodes.push(video);
-                            show.seasons.push(season);
+                            //show.seasons.push(season);
+                            show.AddSeason(season);
                         }
                     }
                     else // the TV show doesn't exist
@@ -102,7 +103,8 @@
                         season = new Season();
                         season.name = video.season;
                         season.episodes.push(video);
-                        show.seasons.push(season);
+                        //show.seasons.push(season);
+                        show.AddSeason(season);
 
                         this.shows[video.title] = show;
 
@@ -117,7 +119,8 @@
                     season = new Season();
                     season.name = video.season;
                     season.episodes.push(video);
-                    show.seasons.push(season);
+                    //show.seasons.push(season);
+                    show.AddSeason(season);
 
                     this.shows[video.title] = show;
 

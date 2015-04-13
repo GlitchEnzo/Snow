@@ -1,7 +1,6 @@
 ﻿class Video
 {
     genre = "Unknown";
-    //type = "Unknown";
     title = "Unknown";
     season = "Unknown";
     episodeNumber = "Unknown";
@@ -23,7 +22,7 @@
         // check if it is a TV show episode
         if (!this.isMovie)
         {
-            listItem.innerHTML = "<div><img src=\"icons/video.png\"/> " + this.title + " - " + this.episodeNumber + " - " + this.episodeTitle + "</div>";
+            listItem.innerHTML = "<div><img src=\"icons/video.png\"/> " + this.title + " - S" + this.season + "E" + this.episodeNumber + " - " + this.episodeTitle + "</div>";
         }
         else // it is a movie
         {

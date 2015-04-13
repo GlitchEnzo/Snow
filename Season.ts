@@ -10,6 +10,11 @@
      */
     episodes: Video[] = new Array();
 
+    /*
+     * The TvShow that this Season belongs to.
+     */
+    tvShow: TvShow;
+
     CreateListItem()
     {
         var listItem = document.createElement("li");
@@ -28,11 +33,11 @@
     {
         if (pushState)
         {
-            console.log("Push state: " + JSON.stringify({ season: this.name }));
             // push the state into the browser history so can navigate back to it
             history.pushState({ season: this.name }, "", null);
         }
-        currentFolder.innerHTML = this.name;
+
+        currentFolder.innerHTML = this.tvShow.name + " Season " + this.name;
 
         thelist.innerHTML = "";
 
