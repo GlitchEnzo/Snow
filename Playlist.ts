@@ -169,7 +169,6 @@
 
         for (var genreItem in this.genres)
         {
-            // genreItem is just the NAME of the genre, which should be used as a key
             var listItem = this.genres[genreItem].CreateListItem();
             thelist.appendChild(listItem);
         }
@@ -188,8 +187,25 @@
 
         for (var showItem in this.shows)
         {
-            // genreItem is just the NAME of the genre, which should be used as a key
             var listItem = this.shows[showItem].CreateListItem();
+            thelist.appendChild(listItem);
+        }
+    }
+
+    ViewAllMovies(pushState: boolean)
+    {
+        if (pushState)
+        {
+            history.pushState({ viewAllMovies: true }, "Unused", null);
+        }
+
+        currentFolder.innerHTML = "All Movies";
+
+        thelist.innerHTML = "";
+
+        for (var movieItem in this.movies)
+        {
+            var listItem = this.movies[movieItem].CreateListItem();
             thelist.appendChild(listItem);
         }
     }

@@ -25,6 +25,10 @@ window.onpopstate = (event) =>
         {
             playlist.ViewAllTV(false);
         }
+        else if (event.state.viewAllMovies)
+        {
+            playlist.ViewAllMovies(false);
+        }
         else if (event.state.viewAllVideos)
         {
             playlist.ViewAllVideos(false);
