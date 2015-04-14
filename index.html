@@ -27,15 +27,14 @@
     <div id="header">
         <div id="videoTitle">Title</div>
         <video id="videoElement" controls>Not Supported!</video>
-        <div>
+        <div id="tabs">
             <button onclick="playlist.ViewAllTV(true);">TV</button>
             <button onclick="playlist.ViewAllMovies(true);">Movies</button>
             <button onclick="playlist.ViewAllOther(true);">Other</button>
             <a id="currentFolder">Location</a>
-            <input id="searchbox" type="text" value="Search" size="21" maxlength="120" onkeydown="search(event)" onclick="searchClicked();">
+            <input id="searchbox" type="text" value="Search" size="15" maxlength="120" onkeydown="search(event)" onclick="searchClicked();">
         </div>
     </div>
-
     <div id="scroller">
         <ul id="thelist" />
     </div>

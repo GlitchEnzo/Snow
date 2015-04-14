@@ -1,4 +1,6 @@
 ﻿/* 
+    Positioning
+    -----------
     Static: Default layout. 
     Fixed: Fixed relative to browser window.  Removed from layout.
     Relative: Relative to IT'S OWN normal layout position.  Normal position used in layout.
@@ -19,6 +21,7 @@ body {
 	background: black;
 	padding: 0.3em 1em;
     position: relative;
+    text-align: center; /* Center the video element */
 }
 
 #videoTitle {
@@ -27,9 +30,11 @@ body {
 }
 
 #videoElement {
-    margin-left: auto;
-    margin-right: auto;
-    display: block
+    padding: 0;
+}
+
+#tabs {
+    text-align: left;
 }
 
 #currentFolder {

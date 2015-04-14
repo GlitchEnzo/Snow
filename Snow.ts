@@ -55,19 +55,28 @@ window.onpopstate = (event) =>
 
 window.onresize = () =>
 {
-    // Make the video 33% of the window.  The browsing list will then be the remaining 66%.
+    // Make the video 33% of the window.
     videoElement.height = window.innerHeight * 0.33;
 
     //videoElement.style.maxWidth = window.innerWidth + "px";
-
-    //if (videoElement.width > window.innerWidth)
+    //if (window.innerWidth < 440)
     //{
-    //    console.log("squishing!");
     //    videoElement.width = window.innerWidth;
     //}
 
     // The size of the header and footer are fixed.  The list should take up all remaining space.
     thelist.style.height = window.innerHeight - header.clientHeight + "px";
+
+    //window.setTimeout(() =>
+    //{
+    //    //console.log("timeout!");
+    //    console.log(videoElement.style.width + " : " + window.innerWidth);
+    //    if (videoElement.width > window.innerWidth)
+    //    {
+    //        console.log("squishing!");
+    //        videoElement.width = window.innerWidth;
+    //    }
+    //}, 1000);
 }
 
 function search(event: KeyboardEvent)
