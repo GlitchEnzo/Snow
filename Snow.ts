@@ -59,28 +59,12 @@ window.onpopstate = (event) =>
 
 window.onresize = () =>
 {
-    // Make the video 33% of the window.
+    // Make the video 100% the width and 33% the height of the window.
+    videoElement.width = window.innerWidth;
     videoElement.height = window.innerHeight * 0.33;
-
-    //videoElement.style.maxWidth = window.innerWidth + "px";
-    //if (window.innerWidth < 440)
-    //{
-    //    videoElement.width = window.innerWidth;
-    //}
 
     // The size of the header and footer are fixed.  The list should take up all remaining space.
     thelist.style.height = window.innerHeight - header.clientHeight + "px";
-
-    //window.setTimeout(() =>
-    //{
-    //    //console.log("timeout!");
-    //    console.log(videoElement.style.width + " : " + window.innerWidth);
-    //    if (videoElement.width > window.innerWidth)
-    //    {
-    //        console.log("squishing!");
-    //        videoElement.width = window.innerWidth;
-    //    }
-    //}, 1000);
 }
 
 function search(event: KeyboardEvent)
@@ -114,8 +98,8 @@ function searchClicked()
 window.onload = () =>
 {
     videoElement = <HTMLVideoElement>document.getElementById('videoElement');
-    videoElement.addEventListener("loadeddata", function () { videoElement.play(); }, true);
-    videoElement.addEventListener("ended", function () { playlist.PlayNextVideo(); }, true);
+    videoElement.addEventListener("loadeddata", () => { videoElement.play(); }, true);
+    videoElement.addEventListener("ended", () => { playlist.PlayNextVideo(); }, true);
 
     thelist = document.getElementById('thelist');
     header = document.getElementById('header');

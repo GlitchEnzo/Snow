@@ -8,8 +8,8 @@
 */
 
 * {
-    margin: 0; 
-    padding: 0;
+    margin: 0 0; 
+    padding: 0 0;
 }
 			
 body {
@@ -19,9 +19,6 @@ body {
 			
 #header {
 	background: black;
-	padding: 0.3em 1em;
-    position: relative;
-    text-align: center; /* Center the video element */
 }
 
 #videoTitle {
@@ -30,11 +27,13 @@ body {
 }
 
 #videoElement {
-    padding: 0;
+    /* Cannot override the padding from the header in Chrome. */
+    /*background: blue;*/
 }
 
 #tabs {
     text-align: left;
+    padding: 0.3em 1em; /* Pad the buttons */
 }
 
 #currentFolder {
