@@ -363,18 +363,52 @@
  */
 function CompareVideos(a: Video, b: Video)
 {
-    // first compare the genre
-    if (a.genre < b.genre)
-        return -1;
-    if (a.genre > b.genre)
-        return 1;
-
-    // now compare the title
+    // compare the title
     if (a.title < b.title)
         return -1;
     if (a.title > b.title)
         return 1;
 
-    // they must be the same song
+    // compare the season
+    if (a.season < b.season)
+        return -1;
+    if (a.season > b.season)
+        return 1;
+
+    // compare the episode number
+    if (a.episodeNumber < b.episodeNumber)
+        return -1;
+    if (a.episodeNumber > b.episodeNumber)
+        return 1;
+
+    // they must be the same video
+    return 0;
+}
+
+/**
+ * Compares two Season objects to sort them.
+ */
+function CompareSeasons(a: Season, b: Season)
+{
+    if (a.name < b.name)
+        return -1;
+    if (a.name > b.name)
+        return 1;
+
+    // they must be the same season
+    return 0;
+}
+
+/**
+ * Compares two TV Show objects to sort them.
+ */
+function CompareShows(a: TvShow, b: TvShow)
+{
+    if (a.name < b.name)
+        return -1;
+    if (a.name > b.name)
+        return 1;
+
+    // they must be the same show
     return 0;
 }
