@@ -33,7 +33,6 @@
     {
         if (pushState)
         {
-            // push the state into the browser history so can navigate back to it
             history.pushState({ season: this.name }, "", null);
         }
 

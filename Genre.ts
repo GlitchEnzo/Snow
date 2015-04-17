@@ -33,10 +33,9 @@
     {
         if (pushState)
         {
-            // push the state into the browser history so can navigate back to it
-            // pushState(stateObject, title, url)
             history.pushState({ genre: this.name }, "", null);
         }
+
         currentFolder.innerHTML = this.name;
 
         thelist.innerHTML = "";

@@ -270,13 +270,23 @@
         videoElement.load();
     }
 
-    //GetPrevVideo() {
-    //    this.currentVideoIndex--;
-    //    if (this.currentVideoIndex < 0)
-    //        this.currentVideoIndex += this.playlist.length;
+    GetPrevVideo()
+    {
+        this.currentVideoIndex--;
+        if (this.currentVideoIndex < 0)
+            this.currentVideoIndex += this.playlist.length;
 
-    //    return this.playlist[this.currentVideoIndex];
-    //}
+        return this.playlist[this.currentVideoIndex];
+    }
+
+    PlayPrevVideo()
+    {
+        var path = this.GetPrevVideo();
+        var parts = path.split("/");
+        videoTitle.innerHTML = parts[parts.length - 1];
+        videoElement.src = path;
+        videoElement.load();
+    }
 
     // add the given Video node (and all other Videos at the same level) to the playlist [automatically starts playing the given Video node]
     AddToPlaylist(video: Video)
